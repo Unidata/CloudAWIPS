@@ -18,15 +18,10 @@ RUN groupadd fxalpha && useradd -G fxalpha awips
 RUN yum groupinstall awips2-cave -y
 RUN yum groupinstall "Fonts" -y
 RUN yum install -y gtk2 mesa-libGLU mesa-libGL mesa-dri-drivers
-#*x11-*fonts*
-
-# Change owner 'stream' since we do not use or need 'awips' for cave
-#RUN chown -R ${CUSER}:${CUSER} /awips2
 USER ${CUSER}
 
 ###
-# Application files and localization preferences.
-# To auto-connect to edex-cloud.
+# Application files and localization preferences to auto-connect to edex-cloud, and open windows at full width
 ###
 
 COPY localization.prefs ${HOME}/caveData/.metadata/.plugins/org.eclipse.core.runtime/.settings/
@@ -36,22 +31,28 @@ COPY start.sh ${HOME}/
 COPY Dockerfile ${HOME}/
 COPY README.md ${HOME}/
 COPY COPYRIGHT.md ${HOME}/
-
 ENV COPYRIGHT_FILE COPYRIGHT.md
 ENV README_FILE README.md
 
 ###
-# Add the version number to the version file.
-# Viewable when you run script using 'VERSION' env variable.
+# Add the version number to the version file
 ###
+
 RUN echo "CloudAWIPS Version: $(cat /awips2/cave/awipsVersion.txt | grep vizVersion| cut -d "=" -f 2) $(date)" >> $VERSION_FILE
+
+###
+# Environmental variable control
+###
 
 USER root
 RUN rm -rf /etc/profile.d/awips2.csh
 RUN mv /etc/profile.d/awips2.sh ${HOME}
 RUN chown -R ${CUSER}:${CUSER} ${HOME}
 
-# Manual cleanup TODO: custom ant build for slim client
+###
+# Manual cleanup
+###
+
 RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.archive_1.16.0.2018041718.jar
 RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.stats_1.15.0.2018041718.jar
 RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.useradmin_1.14.0.2018041718.jar
@@ -66,11 +67,10 @@ ENV SIZEH 768
 ENV CDEPTH 24
 
 # Fluxbox desktop environment
-
 RUN echo "session.screen0.toolbar.visible: false" >> ~/.fluxbox/init
 RUN echo "session.screen0.defaultDeco: NONE" >> ~/.fluxbox/init
 RUN echo "/usr/bin/fluxbox -log ~/.fluxbox/log" > ~/.fluxbox/startup
-
+# Fluxbox menu
 RUN echo "[begin] (fluxbox)" > ~/.fluxbox/menu
 RUN echo "[exec] (AWIPS CAVE) {/awips2/cave/cave.sh} </awips2/cave/cave.png>" >> ~/.fluxbox/menu
 RUN echo "[end] (fluxbox)" >> ~/.fluxbox/menu
