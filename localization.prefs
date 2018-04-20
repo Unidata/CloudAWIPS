@@ -1,0 +1,5 @@
+alertServer=tcp\://localhost\:61998
+eclipse.preferences.version=1
+httpServerAddress=http\://edex-cloud.unidata.ucar.edu\:9581/services
+httpServerAddressOptions=http\://edex-cloud.unidata.ucar.edu\:9581/services
+siteName=OAX
