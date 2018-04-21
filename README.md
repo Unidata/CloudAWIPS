@@ -13,6 +13,7 @@ This docker image contains an instance of Unidata AWIPS CAVE running in a virtua
 
 From the command line, run
 
+    docker pull unidata/cloudstream:centos7
     docker run -p 6080:6080 -it unidata/cloudawips
 
 and then open [http://localhost:6080](http://localhost:6080)
