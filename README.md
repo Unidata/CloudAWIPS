@@ -1,5 +1,5 @@
 
-# CloudStream AWIPS <IMG SRC="https://travis-ci.org/Unidata/cloudawips.svg?branch=master"/>
+# CloudStream AWIPS <IMG SRC="https://travis-ci.org/mjames-upc/CloudAWIPS.svg?branch=master"/>
 
 This docker image contains an instance of Unidata AWIPS CAVE running in a virtual X11 environment, accessed via a web browser.   
 
