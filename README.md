@@ -1,26 +1,29 @@
 
 # CloudStream AWIPS <IMG SRC="https://travis-ci.org/mjames-upc/CloudAWIPS.svg?branch=master"/>
 
-This docker image contains an instance of Unidata AWIPS CAVE running in a virtual X11 environment, accessed via a web browser.   
-
-#### Build AWIPS CAVE Docker image
-
-    git clone https://github.com/Unidata/CloudAWIPS.git
-    cd CloudAWIPS
-    make build
+This [docker image](https://hub.docker.com/r/unidata/cloudawips/) contains an instance of Unidata AWIPS CAVE running in a virtual X11 environment provided by [CloudStream](https://github.com/Unidata/cloudstream), accessed via a web browser.
 
 #### Run AWIPS CAVE
 
 From the command line, run
 
-    docker pull unidata/cloudstream:centos7
     docker run -p 6080:6080 -it unidata/cloudawips
 
 and then open [http://localhost:6080](http://localhost:6080)
 
 ![](https://www.unidata.ucar.edu/software/awips2/images/CloudAWIPS.jpg)
 
+#### Build AWIPS CAVE Docker Image
+
+    git clone https://github.com/Unidata/CloudAWIPS.git
+    cd CloudAWIPS
+    make build
+
 ### Notes
+
+* Specify the width and height on the command line:
+
+      docker run -p 6080:6080 -e SIZEW=1024 -e SIZEH=768 unidata/cloudawips
 
 * This repository uses a modified `bootstrap.sh` which overrides the `unidata/cloudstream:centos7` file of the same name.
 * AWIPS CAVE is the only application accessible through this app streaming environment, and is run full-screen, with no window decorations or titlebar.
