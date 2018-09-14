@@ -38,7 +38,7 @@ ENV README_FILE README.md
 # Add the version number to the version file
 ###
 
-RUN echo "CloudAWIPS Version: $(cat /awips2/cave/awipsVersion.txt | grep vizVersion| cut -d "=" -f 2) $(date)" >> $VERSION_FILE
+RUN echo "CloudAWIPS Version: $(rpm -qa |grep awips2-cave-wrapper | cut -d "-" -f 4,5) $(date)" >> $VERSION_FILE
 
 ###
 # Environmental variable control
@@ -53,9 +53,8 @@ RUN chown -R ${CUSER}:${CUSER} ${HOME}
 # Manual cleanup
 ###
 
-RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.archive_1.16.0.2018041718.jar
-RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.stats_1.15.0.2018041718.jar
-RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.useradmin_1.14.0.2018041718.jar
+RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.archive*.jar
+RUN rm -rf /awips2/cave/plugins/com.raytheon.uf.viz.useradmin*.jar
 
 USER ${CUSER}
 
@@ -68,7 +67,7 @@ ENV CDEPTH 24
 
 # Fluxbox desktop environment
 RUN echo "session.screen0.toolbar.visible: false" >> ~/.fluxbox/init
-RUN echo "session.screen0.defaultDeco: NONE" >> ~/.fluxbox/init
+#RUN echo "session.screen0.defaultDeco: NONE" >> ~/.fluxbox/init
 RUN echo "/usr/bin/fluxbox -log ~/.fluxbox/log" > ~/.fluxbox/startup
 # Fluxbox menu
 RUN echo "[begin] (fluxbox)" > ~/.fluxbox/menu

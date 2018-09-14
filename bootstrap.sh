@@ -110,9 +110,9 @@ openssl req -new -x509 -days 365 -nodes -out self.pem -keyout self.pem -batch >&
 cd ~
 /home/${CUSER}/noVNC/utils/launch.sh ${SSLOP} --vnc 127.0.0.1:5901 >& /dev/null &
 
-printf "\n\n=============================================================\n"
+printf "\n\n=====================================================================\n"
 cat VERSION.md
-printf "=============================================================\n\n"
+printf "=====================================================================\n\n"
 
 if [ -f /home/${CUSER}/start.sh ]; then
     /home/${CUSER}/start.sh >& /dev/null
