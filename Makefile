@@ -2,7 +2,7 @@ ORG = unidata
 IMAGE = cloudawips
 TAG = latest
 
-all: build push
+all: build
 
 build:
 	docker build  \

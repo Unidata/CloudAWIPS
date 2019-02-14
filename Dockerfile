@@ -12,12 +12,13 @@ MAINTAINER Michael James <mjames@ucar.edu>
 ###
 
 USER root
+
 RUN wget -O /etc/yum.repos.d/awips2.repo https://www.unidata.ucar.edu/software/awips2/doc/el7-dev.repo
 RUN yum -y clean all
 RUN groupadd fxalpha && useradd -G fxalpha awips
 RUN yum groupinstall awips2-cave -y
 RUN yum groupinstall "Fonts" -y
-RUN yum install -y gtk2 mesa-libGLU mesa-libGL mesa-dri-drivers
+RUN yum install -y gtk2 mesa-libGLU mesa-libGL mesa-dri-drivers glib2
 USER ${CUSER}
 
 ###
@@ -26,6 +27,7 @@ USER ${CUSER}
 
 COPY localization.prefs ${HOME}/caveData/.metadata/.plugins/org.eclipse.core.runtime/.settings/
 COPY workbench.xmi ${HOME}/caveData/.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
+
 COPY bootstrap.sh ${HOME}/
 COPY start.sh ${HOME}/
 COPY Dockerfile ${HOME}/
@@ -72,6 +74,7 @@ RUN echo "/usr/bin/fluxbox -log ~/.fluxbox/log" > ~/.fluxbox/startup
 # Fluxbox menu
 RUN echo "[begin] (fluxbox)" > ~/.fluxbox/menu
 RUN echo "[exec] (AWIPS CAVE) {/awips2/cave/cave.sh} </awips2/cave/cave.png>" >> ~/.fluxbox/menu
+RUN echo "[exec] (terminal) {/usr/bin/xterm}" >> ~/.fluxbox/menu
 RUN echo "[end] (fluxbox)" >> ~/.fluxbox/menu
 
 # Build-time metadata as defined at http://label-schema.org
